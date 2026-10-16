@@ -53,6 +53,12 @@ variable "inference_destination_regions" {
   default     = []
 }
 
+variable "guardrail_profile_arn" {
+  description = "Guardrail profile ARN that enables cross-Region inference on the guardrail. Set it when callers use cross-region inference profiles. null = disabled."
+  type        = string
+  default     = null
+}
+
 variable "log_retention_days" {
   description = "Days to keep invocation logs (S3 and CloudWatch). Logs contain prompts and responses."
   type        = number

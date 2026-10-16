@@ -96,6 +96,7 @@ Tamper protection is deliberately not tested live (a misconfiguration would dele
 ## Design notes
 
 - **Cross-region inference needs two permissions.** An inference profile call is authorized on the profile ARN *and* on the foundation model in every destination region. `access.tf` builds both from `allowed_inference_profile_ids` and `inference_destination_regions`. The SCP region lock must include the destination regions too, or calls fail with a confusing AccessDenied.
+- **Cross-region profiles need a cross-region guardrail.** Set `guardrail_profile_arn` when callers (such as Claude Code) use cross-region inference profiles.
 - **Pin a numeric guardrail version.** Allowing the guardrail ID without a version lets anyone with edit rights change behaviour instantly. A new version is a reviewed Terraform change.
 - **Invocation logging is per account and per region.** Deploy once per region you allow.
 - **Logs contain prompts and responses.** Treat the bucket and log group as sensitive data; restrict read access separately and set `log_retention_days` to your policy.

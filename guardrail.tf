@@ -47,6 +47,15 @@ resource "aws_bedrock_guardrail" "this" {
       type = "PROFANITY"
     }
   }
+
+  # Required when callers use cross-region inference profiles
+  # (Claude Code does by default).
+  dynamic "cross_region_config" {
+    for_each = var.guardrail_profile_arn == null ? [] : [var.guardrail_profile_arn]
+    content {
+      guardrail_profile_identifier = cross_region_config.value
+    }
+  }
 }
 
 # A numbered, immutable version. IAM pins this version, so editing the
