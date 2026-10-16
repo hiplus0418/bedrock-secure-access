@@ -1,0 +1,22 @@
+# Copy to terraform.tfvars and edit. terraform.tfvars is git-ignored.
+
+region                 = "ap-northeast-1"
+identity_center_region = "ap-northeast-1"
+
+workload_profile   = "workload-admin"
+management_profile = "management-admin"
+
+identity_center_group_name = "bedrock-users"
+
+# Get valid IDs for your region:
+#   aws bedrock list-foundation-models --region ap-northeast-1 --query "modelSummaries[].modelId"
+#   aws bedrock list-inference-profiles --region ap-northeast-1 --query "inferenceProfileSummaries[].inferenceProfileId"
+allowed_model_ids             = ["<foundation-model-id>"]
+allowed_inference_profile_ids = ["<inference-profile-id>"]
+inference_destination_regions = ["ap-northeast-1", "ap-northeast-3"]
+
+monthly_budget_usd  = 100
+budget_alert_emails = ["cloud-team@example.com"]
+
+enable_scp                  = false
+scp_admin_role_arn_patterns = ["arn:aws:iam::*:role/aws-reserved/sso.amazonaws.com/*AWSReservedSSO_PlatformAdmin_*"]
